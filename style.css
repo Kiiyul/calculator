@@ -1,0 +1,30 @@
+.calculator {
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    border-style: solid;
+    border-color: black;
+    width: 500px;
+    margin-left: 700px;
+}
+
+.screen {
+    display: flex;
+    justify-content: flex-end;
+    background-color: grey;
+    font-size: 70px;
+}
+
+.numberGrid {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    width: 300px;
+}
+
+.number {
+    font-size: 70px;
+    width: 100px;
+    height: 100px;
+}
