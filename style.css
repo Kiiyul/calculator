@@ -4,7 +4,7 @@
     flex-direction: column;
     border-style: solid;
     border-color: black;
-    width: 500px;
+    width: 400px;
     margin-left: 700px;
 }
 
@@ -13,6 +13,11 @@
     justify-content: flex-end;
     background-color: grey;
     font-size: 70px;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
 }
 
 .numberGrid {
@@ -24,6 +29,20 @@
 }
 
 .number {
+    font-size: 70px;
+    width: 100px;
+    height: 100px;
+}
+
+.large {
+    width: 200px;
+}
+
+.symbolGrid {
+    width: 100px;
+}
+
+.symbols{
     font-size: 70px;
     width: 100px;
     height: 100px;
