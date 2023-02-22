@@ -31,3 +31,19 @@ function operate(operator, a, b) {
             return null
     }
 }
+
+function addNumberToScreen() {
+    const screen = document.querySelector('.screen');
+    const numberButtons = document.querySelectorAll('.number');
+    numberButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const buttonValue = button.textContent;
+        screen.textContent += buttonValue;
+      });
+    });
+  }
+
+  window.onload = function() {
+    addNumberToScreen();
+  }
+  
