@@ -10,29 +10,32 @@
   </head>
   <body>
     <div class="calculator">
-      <div class="screen">1234567</div>
+      <div class="screen">
+        <div class="screen-previous" id="previousOperationScreen"></div>
+        <div class="screen-current" id="currentOperationScreen">0</div>
+      </div>
       <div class="input">
         <div class="numberGrid">
-          <button class="number" data-key="53">%</button>
-          <button class="number large" data-key="8">AC</button>
-          <button class="number" data-key="57">9</button>
-          <button class="number" data-key="56">8</button>
-          <button class="number" data-key="55">7</button>
-          <button class="number" data-key="54">6</button>
-          <button class="number" data-key="53">5</button>
-          <button class="number" data-key="52">4</button>
-          <button class="number" data-key="51">3</button>
-          <button class="number" data-key="50">2</button>
-          <button class="number" data-key="49">1</button>
-          <button class="number large" data-key="48">0</button>
-          <button class="number" data-key="190">.</button>
+          <button class="number" data-operator>%</button>
+          <button class="number large" id="allClearButton">AC</button>
+          <button class="number" data-number>9</button>
+          <button class="number" data-number>8</button>
+          <button class="number" data-number>7</button>
+          <button class="number" data-number>6</button>
+          <button class="number" data-number>5</button>
+          <button class="number" data-number>4</button>
+          <button class="number" data-number>3</button>
+          <button class="number" data-number>2</button>
+          <button class="number" data-number>1</button>
+          <button class="number large" data-number>0</button>
+          <button class="number" id="decimalButton">.</button>
         </div>
           <div class="symbolGrid">
-          <button class="symbols" data-key="187">+</button>
-          <button class="symbols" data-key="189">-</button>
-          <button class="symbols" data-key="56">*</button>
-          <button class="symbols" data-key="191">÷</button>
-          <button class="symbols" data-key="187">=</button>
+          <button class="symbols" data-operator>+</button>
+          <button class="symbols" data-operator>-</button>
+          <button class="symbols" data-operator>*</button>
+          <button class="symbols" data-operator>÷</button>
+          <button class="symbols" id="equalsButton">=</button>
         </div>
       </div>
     </div>
