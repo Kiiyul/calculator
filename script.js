@@ -14,6 +14,10 @@ function divide(a,b){
   return a/b;
 }
 
+function percentage(number, percentage) {
+  return number * (percentage / 100);
+}
+
 function operate(operator, a, b) {
   a = Number(a)
   b = Number(b)
@@ -24,6 +28,8 @@ function operate(operator, a, b) {
       return a - b;
     case '*':
       return a * b;
+    case '%':
+      return percentage(a, b);
     case '÷':
       if (b === 0) return null;
       else return a / b;
@@ -32,46 +38,98 @@ function operate(operator, a, b) {
   }
 }
 
+let firstOperand = ''
+let secondOperand = ''
+let currentOperation = null
+let shouldResetScreen = false
 
+const numberButtons = document.querySelectorAll('[data-number]')
+const operatorButtons = document.querySelectorAll('[data-operator]')
+const equalsButton = document.getElementById('equalsButton')
+const clearButton = document.getElementById('allClearButton')
+const decimalButton = document.getElementById('decimalButton')
+const previousOperationScreen = document.getElementById('previousOperationScreen')
+const currentOperationScreen = document.getElementById('currentOperationScreen')
 
-let currentValue = "0";
-const screen = document.querySelector(".screen");
+window.addEventListener('keydown', handleKeyboardInput)
+equalsButton.addEventListener('click', evaluate)
+clearButton.addEventListener('click', clear)
+decimalButton.addEventListener('click', appendDecimal)
 
-function handleButtonClick(event) {
-  const button = event.target;
-  const value = button.textContent;
+numberButtons.forEach((button) =>
+  button.addEventListener('click', () => appendNumber(button.textContent))
+)
 
-  if (value === "AC") {
-    screen.textContent = "0";
-    currentValue = "0";
-  } else if (value === "=") {
-    // Extract values and operator from the string on the screen
-    const expression = screen.textContent;
-    const operatorIndex = expression.search(/[\+\-\*÷]/);
-    const operator = expression.charAt(operatorIndex);
-    const numbers = expression.split(/[\+\-\*÷]/);
-    const a = parseFloat(numbers[0]);
-    const b = parseFloat(numbers[1]);
+operatorButtons.forEach((button) =>
+  button.addEventListener('click', () => setOperation(button.textContent))
+)
 
-    // Perform calculation using stored value and current value on screen
-    const result = operate(operator, a, b);
-
-    // Update screen with result
-    screen.textContent = result;
-    currentValue = result;
-  } else {
-    // Append value to screen
-    if (currentValue === "0") {
-      currentValue = value;
-    } else {
-      currentValue += value;
-    }
-    screen.textContent = currentValue;
-  }
+function appendNumber(number) {
+  if (currentOperationScreen.textContent === '0' || shouldResetScreen)
+    resetScreen()
+  currentOperationScreen.textContent += number
 }
 
+function resetScreen() {
+  currentOperationScreen.textContent = ''
+  shouldResetScreen = false
+}
 
-const buttons = document.querySelectorAll('.number, .symbols');
-buttons.forEach(button => {
-  button.addEventListener('click', handleButtonClick);
-});
+function clear() {
+  currentOperationScreen.textContent = '0'
+  previousOperationScreen.textContent = ''
+  firstOperand = ''
+  secondOperand = ''
+  currentOperation = null
+}
+
+function appendDecimal() {
+  if (shouldResetScreen) resetScreen()
+  if (currentOperationScreen.textContent === '')
+    currentOperationScreen.textContent = '0'
+  if (currentOperationScreen.textContent.includes('.')) return
+  currentOperationScreen.textContent += '.'
+}
+
+function setOperation(operator) {
+  if (currentOperation !== null) evaluate()
+  firstOperand = currentOperationScreen.textContent
+  currentOperation = operator
+  previousOperationScreen.textContent = `${firstOperand} ${currentOperation}`
+  shouldResetScreen = true
+}
+
+function evaluate() {
+  if (currentOperation === null || shouldResetScreen) return
+  if (currentOperation === '÷' && currentOperationScreen.textContent === '0') {
+    alert("Hahahaha, you know you can't divide by 0!")
+    return
+  }
+  secondOperand = currentOperationScreen.textContent
+  currentOperationScreen.textContent = roundResult(
+    operate(currentOperation, firstOperand, secondOperand)
+  )
+  previousOperationScreen.textContent = `${firstOperand} ${currentOperation} ${secondOperand} =`
+  currentOperation = null
+}
+
+function roundResult(number) {
+  return Math.round(number * 1000) / 1000
+}
+
+function handleKeyboardInput(e) {
+  if (e.key >= 0 && e.key <= 9) appendNumber(e.key)
+  if (e.key === '.') appendDecimal()
+  if (e.key === '=' || e.key === 'Enter') evaluate()
+  if (e.key === 'Escape') clear()
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/' || e.key === '%' )
+    setOperation(convertOperator(e.key))
+}
+
+function convertOperator(keyboardOperator) {
+  if (keyboardOperator === '/') return '÷'
+  if (keyboardOperator === '*') return '×'
+  if (keyboardOperator === '-') return '−'
+  if (keyboardOperator === '+') return '+'
+  if (keyboardOperator === '%') return '%'
+}
