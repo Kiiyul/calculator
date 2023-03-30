@@ -4,20 +4,37 @@
     flex-direction: column;
     border-style: solid;
     border-color: black;
-    width: 400px;
+    width: 515px;
     margin-left: 700px;
+    background-color: darkcyan;
 }
 
-.screen {
+@font-face {
+    font-family: digital7;
+    src: url(digital7-rg1mL.ttf);
+}
+
+.screen{
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
-    background-color: grey;
-    font-size: 70px;
+    background-color: black;
+    height: 180px;
+}
+
+.screen-current, .screen-previous{
+    font-size: 90px;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: right;
+    font-family: digital7;
+    color: lime;
 }
 
 .input {
     display: flex;
     flex-direction: row;
+    padding: 10px;
 }
 
 .numberGrid {
@@ -25,25 +42,36 @@
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: flex-end;
-    width: 300px;
+    width: 330px;
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-right: 5px;
+    padding-bottom: 30px;
 }
 
 .number {
-    font-size: 70px;
+    font-size: 60px;
     width: 100px;
     height: 100px;
+    margin: 5px;
+    border-radius: 15px;
 }
 
 .large {
-    width: 200px;
+    width: 210px;
 }
 
 .symbolGrid {
     width: 100px;
+    padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .symbols{
-    font-size: 70px;
+    font-size: 60px;
     width: 100px;
     height: 100px;
+    margin: 5px;
+    border-radius: 15px;
 }
